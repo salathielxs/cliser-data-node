@@ -426,8 +426,8 @@ The transaction and recovery model is validated through the following layers:
 | Recovery Implementation | Recovery actions | PASS |
 | Fault Injection | Crash boundaries | PASS |
 | Recovery Idempotency | Repeated recovery | PASS |
-| Persistent Journal | Durable transaction state | IN PROGRESS |
-| True Process Restart | OS-level restart behavior | IN PROGRESS |
+| Persistent Journal | Durable transaction state | PASS |
+| True Process Restart | OS-level restart behavior | PASS |
 
 ## 12. Current Validation Evidence
 
@@ -491,7 +491,11 @@ The Transaction & Recovery Model defines the documented baseline for:
 
 Documentation status: `COMPLETE`.
 
-Implementation status of persistent restart recovery remains subject to the dedicated 15.2.6-I validation layer.
+Persistent restart recovery was subsequently validated by the dedicated 15.2.6-I validation layer.
+
+Current operational regression confirms the transaction/recovery test suite passes with 31/31 tests.
+
+The historical 15.2.6-F, 15.2.6-G, 15.2.6-H and 15.2.6-I validation records are preserved as separate evidence layers.
 
 ---
 
