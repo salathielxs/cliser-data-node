@@ -1,0 +1,94 @@
+# ============================================================
+# CLISER DATA NODE — Git Ignore
+# ============================================================
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+# Secrets / local configuration
+.env
+.env.*
+!.env.example
+
+# Local databases
+data/*.db
+data/*.sqlite
+data/*.sqlite3
+*.db
+*.sqlite
+*.sqlite3
+
+# Operational object/block storage
+storage/objects/
+storage/blocks/
+
+# Runtime / temporary
+tmp/
+temp/
+*.log
+*.pid
+
+# Test/runtime generated state
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Generated reports/results
+lifecycle-result.json
+pytest_collect_order.txt
+cliser_code_audit.txt
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# ============================================================
+# CLISER DATA NODE — Local secrets / historical snapshots
+# ============================================================
+
+# Cryptographic / identity material
+config/.idempotency_test_token
+config/crypto_identity.json
+config/crypto_identity.protected.backup
+config/identity.json
+
+# Historical source snapshots / local backups
+*.bak
+*.backup
+*.before_*
+*.pre_*
+*.g*_backup*
+*.g*_backup_*
+
+# Local phase marker files
+15.2.7
+15.2.8
+15.2.9
+
+# ============================================================
+# Local data — never publish runtime databases
+# ============================================================
+data/
+
+# ============================================================
+# All backup / historical snapshots
+# ============================================================
+*.bak_*
+*.backup_*
+*.before_*
+*.pre-*
+*.pre_*
+*.v1
+
+# Historical OpenAPI / architecture snapshots
+docs/architecture/*.pre-*
+docs/openapi/*.pre-*

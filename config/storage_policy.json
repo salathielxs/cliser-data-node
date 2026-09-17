@@ -1,0 +1,13 @@
+{
+  "version": "1.1",
+  "policy": {
+    "reserved_system_bytes": 5368709120,
+    "warning_free_bytes": 5368709120,
+    "critical_free_bytes": 1073741824,
+    "readonly_free_bytes": 536870912,
+
+    "metadata_overhead_per_object_bytes": 4096,
+    "metadata_overhead_per_block_bytes": 512,
+    "filesystem_safety_bytes": 67108864
+  }
+}

@@ -1,0 +1,72 @@
+==============================================================================
+CLISER DATA NODE — 14.25.7 FINAL SYSTEM INTEGRITY AUDIT
+==============================================================================
+[PASS] SQLite integrity
+       ok
+[PASS] Foreign-key integrity
+       violations=0
+[PASS] Core registry schema
+       missing=[]
+
+[CORE COUNTS]
+  blocks           : 41
+  active blocks    : 41
+  zero-ref blocks  : 1
+  objects          : 327
+  active objects   : 271
+  deleted objects  : 56
+  manifests        : 185
+  active manifests : 148
+  manifest blocks  : 199
+  namespaces       : 862
+  transactions     : 349
+[PASS] Zero-reference blocks / GC
+       pending_gc=1; zero_ref_blocks são candidatos válidos ao Garbage Collector
+[PASS] Block reference consistency
+       errors=0
+[PASS] Active manifest integrity
+       errors=0
+[PASS] Transaction → object integrity
+       active_inconsistencies=0; historical_test_residues=36
+[PASS] Transaction journal integrity
+       orphans=0
+[PASS] Idempotency unique index
+[PASS] Object → namespace integrity
+       orphans=0
+[PASS] Quota values
+       negative_quota_bytes=0
+[PASS] Quota status
+       invalid_status=0
+[PASS] Quota → namespace integrity
+       orphans=0
+[PASS] Registry blocks ↔ physical storage
+       missing=0, unregistered=0
+[PASS] Physical objects without registry
+       unregistered=0
+[PASS] Required active object files
+       missing=0
+
+[TRANSACTION STATE]
+  pending/running: 0
+[PASS] Transaction state consistency
+       pending=0
+
+[API TEST SUITE]
+........................................................................ [ 42%]
+........................................................................ [ 84%]
+...........................                                              [100%]
+171 passed, 1 warning in 18.47s
+[PASS] API test suite
+       exit_code=0
+
+[PYTHON COMPILE CHECK]
+[PASS] Python source compilation
+       exit_code=0
+
+==============================================================================
+FINAL RESULT
+==============================================================================
+RESULTADO: PASS
+Sistema estruturalmente íntegro.
+Nenhuma inconsistência crítica encontrada.
+==============================================================================

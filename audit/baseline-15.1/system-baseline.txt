@@ -1,0 +1,82 @@
+CLISER DATA NODE — BASELINE 15.1
+Generated: 2026-09-15T22:53:28-03:00
+
+[SYSTEM]
+Linux localhost 5.15.178-android13-8-00021-g6f2f96be86b9-ab13729987 #1 SMP PREEMPT Wed Jul 2 02:41:59 UTC 2025 aarch64 Android
+Python 3.13.13
+
+[DEPENDENCIES]
+Name: fastapi
+Version: 0.99.1
+Name: starlette
+Version: 0.27.0
+Name: pydantic
+Version: 1.10.26
+Name: uvicorn
+Version: 0.53.0
+Name: cryptography
+Version: 48.0.1
+Name: python-multipart
+Version: 0.0.32
+Name: pytest
+Version: 9.1.1
+Name: anyio
+Version: 4.15.1
+Name: httpx
+Version: 0.28.1
+
+[DATABASE]
+3.53.2 2026-06-03 19:12:13 d6e03d8c777cfa2d35e3b60d8ec3e0187f3e9f99d8e2ee9cac695fd6fcdfalt1 (64-bit)
+
+[PROJECT]
+18M	.
+2.2M	data
+11M	storage
+
+[PYTHON FILES]
+116
+
+[API ROUTES]
+api/routes/__init__.py
+api/routes/auth.py
+api/routes/blocks.py
+api/routes/download.py
+api/routes/health.py
+api/routes/identity.py
+api/routes/lifecycle.py
+api/routes/manifests.py
+api/routes/metadata.py
+api/routes/metrics.py
+api/routes/namespaces.py
+api/routes/objects.py
+api/routes/quotas.py
+api/routes/transactions.py
+api/routes/upload.py
+
+[NODE MODULES]
+node/__init__.py
+node/access_control.py
+node/accounting.py
+node/allocation.py
+node/block_manager.py
+node/capacity.py
+node/credential_manager.py
+node/crypto_identity.py
+node/health.py
+node/identity.py
+node/key_protection.py
+node/lifecycle.py
+node/manifest.py
+node/metrics.py
+node/namespace_manager.py
+node/namespace_security.py
+node/object_manager.py
+node/object_signature.py
+node/quota.py
+node/recovery.py
+node/registry.py
+node/storage.py
+node/transaction.py
+
+[DATABASE INTEGRITY]
+ok

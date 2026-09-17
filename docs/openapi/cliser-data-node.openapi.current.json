@@ -1,0 +1,2610 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "CLISER DATA NODE API",
+    "version": "1.0.0",
+    "description": "HTTP API do CLISER DATA NODE.\n\nAPI Version: v1\nBase Path: /api/v1"
+  },
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Health",
+        "operationId": "health_api_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "HealthResponse": {
+                    "$ref": "#/components/examples/HealthResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/v1/health/live": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Health Live",
+        "operationId": "health_live_api_v1_health_live_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "HealthLiveResponse": {
+                    "$ref": "#/components/examples/HealthLiveResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/v1/health/ready": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Health Ready",
+        "operationId": "health_ready_api_v1_health_ready_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "HealthReadyResponse": {
+                    "$ref": "#/components/examples/HealthReadyResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/v1/metrics": {
+      "get": {
+        "tags": [
+          "metrics"
+        ],
+        "summary": "Get Metrics",
+        "operationId": "get_metrics_api_v1_metrics_get",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            },
+            "name": "authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MetricsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIError"
+                },
+                "examples": {
+                  "ErrorValidation": {
+                    "$ref": "#/components/examples/ErrorValidation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/lifecycle/gc": {
+      "post": {
+        "tags": [
+          "lifecycle"
+        ],
+        "summary": "Garbage Collect",
+        "operationId": "garbage_collect_api_v1_lifecycle_gc_post",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            },
+            "name": "authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIError"
+                },
+                "examples": {
+                  "ErrorValidation": {
+                    "$ref": "#/components/examples/ErrorValidation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/lifecycle/rebuild-refcounts": {
+      "post": {
+        "tags": [
+          "lifecycle"
+        ],
+        "summary": "Rebuild Refcounts",
+        "operationId": "rebuild_refcounts_api_v1_lifecycle_rebuild_refcounts_post",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            },
+            "name": "authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIError"
+                },
+                "examples": {
+                  "ErrorValidation": {
+                    "$ref": "#/components/examples/ErrorValidation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/lifecycle/integrity-check": {
+      "post": {
+        "tags": [
+          "lifecycle"
+        ],
+        "summary": "Integrity Check",
+        "operationId": "integrity_check_api_v1_lifecycle_integrity_check_post",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            },
+            "name": "authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIError"
+                },
+                "examples": {
+                  "ErrorValidation": {
+                    "$ref": "#/components/examples/ErrorValidation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/auth/me": {
+      "get": {
+        "tags": [
+          "authentication"
+        ],
+        "summary": "Auth Me",
+        "operationId": "auth_me_api_v1_auth_me_get",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            },
+            "name": "authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "AuthMeResponse": {
+                    "$ref": "#/components/examples/AuthMeResponse"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIError"
+                },
+                "examples": {
+                  "ErrorValidation": {
+                    "$ref": "#/components/examples/ErrorValidation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/namespaces": {
+      "get": {
+        "tags": [
+          "namespaces"
+        ],
+        "summary": "List Namespaces",
+        "operationId": "list_namespaces_api_v1_namespaces_get",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^(ACTIVE|DISABLED)$",
+              "title": "Status"
+            },
+            "name": "status",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            },
+            "name": "authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NamespaceListResponse"
+                },
+                "examples": {
+                  "NamespaceListResponse": {
+                    "$ref": "#/components/examples/NamespaceListResponse"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIError"
+                },
+                "examples": {
+                  "ErrorValidation": {
+                    "$ref": "#/components/examples/ErrorValidation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "namespaces"
+        ],
+        "summary": "Create Namespace",
+        "operationId": "create_namespace_api_v1_namespaces_post",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            },
+            "name": "authorization",
+            "in": "header"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NamespaceCreateRequest"
+              },
+              "examples": {
+                "NamespaceCreate": {
+                  "$ref": "#/components/examples/NamespaceCreateRequest"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NamespaceResponse"
+                },
+                "examples": {
+                  "NamespaceResponse": {
+                    "$ref": "#/components/examples/NamespaceResponse"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIError"
+                },
+                "examples": {
+                  "ErrorValidation": {
+                    "$ref": "#/components/examples/ErrorValidation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/namespaces/{namespace}": {
+      "get": {
+        "tags": [
+          "namespaces"
+        ],
+        "summary": "Get Namespace",
+        "operationId": "get_namespace_api_v1_namespaces__namespace__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Namespace"
+            },
+            "name": "namespace",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            },
+            "name": "authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NamespaceResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIError"
+                },
+                "examples": {
+                  "ErrorValidation": {
+                    "$ref": "#/components/examples/ErrorValidation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/namespaces/{namespace}/enable": {
+      "post": {
+        "tags": [
+          "namespaces"
+        ],
+        "summary": "Enable Namespace",
+        "operationId": "enable_namespace_api_v1_namespaces__namespace__enable_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Namespace"
+            },
+            "name": "namespace",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            },
+            "name": "authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NamespaceResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIError"
+                },
+                "examples": {
+                  "ErrorValidation": {
+                    "$ref": "#/components/examples/ErrorValidation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/namespaces/{namespace}/disable": {
+      "post": {
+        "tags": [
+          "namespaces"
+        ],
+        "summary": "Disable Namespace",
+        "operationId": "disable_namespace_api_v1_namespaces__namespace__disable_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Namespace"
+            },
+            "name": "namespace",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            },
+            "name": "authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NamespaceResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIError"
+                },
+                "examples": {
+                  "ErrorValidation": {
+                    "$ref": "#/components/examples/ErrorValidation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/namespaces/{namespace}/objects": {
+      "get": {
+        "tags": [
+          "objects"
+        ],
+        "summary": "List Objects",
+        "operationId": "list_objects_api_v1_namespaces__namespace__objects_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Namespace"
+            },
+            "name": "namespace",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            },
+            "name": "authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectListResponse"
+                },
+                "examples": {
+                  "ObjectListResponse": {
+                    "$ref": "#/components/examples/ObjectListResponse"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIError"
+                },
+                "examples": {
+                  "ErrorValidation": {
+                    "$ref": "#/components/examples/ErrorValidation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "objects"
+        ],
+        "summary": "Create Object",
+        "operationId": "create_object_api_v1_namespaces__namespace__objects_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Namespace"
+            },
+            "name": "namespace",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Idempotency-Key"
+            },
+            "name": "Idempotency-Key",
+            "in": "header"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            },
+            "name": "authorization",
+            "in": "header"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ObjectCreateRequest"
+              },
+              "examples": {
+                "ObjectCreate": {
+                  "$ref": "#/components/examples/ObjectCreateRequest"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectCreateResponse"
+                },
+                "examples": {
+                  "ObjectCreateResponse": {
+                    "$ref": "#/components/examples/ObjectCreateResponse"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIError"
+                },
+                "examples": {
+                  "ErrorValidation": {
+                    "$ref": "#/components/examples/ErrorValidation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/namespaces/{namespace}/objects/{object_id}": {
+      "get": {
+        "tags": [
+          "objects"
+        ],
+        "summary": "Get Object",
+        "operationId": "get_object_api_v1_namespaces__namespace__objects__object_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Namespace"
+            },
+            "name": "namespace",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Object Id"
+            },
+            "name": "object_id",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            },
+            "name": "authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectMetadataResponse"
+                },
+                "examples": {
+                  "ObjectMetadataResponse": {
+                    "$ref": "#/components/examples/ObjectMetadataResponse"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIError"
+                },
+                "examples": {
+                  "ErrorValidation": {
+                    "$ref": "#/components/examples/ErrorValidation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "objects"
+        ],
+        "summary": "Delete Object",
+        "operationId": "delete_object_api_v1_namespaces__namespace__objects__object_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Namespace"
+            },
+            "name": "namespace",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Object Id"
+            },
+            "name": "object_id",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            },
+            "name": "authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectDeleteResponse"
+                },
+                "examples": {
+                  "ObjectDeleteResponse": {
+                    "$ref": "#/components/examples/ObjectDeleteResponse"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIError"
+                },
+                "examples": {
+                  "ErrorValidation": {
+                    "$ref": "#/components/examples/ErrorValidation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/namespaces/{namespace}/objects/{object_id}/verify": {
+      "get": {
+        "tags": [
+          "objects"
+        ],
+        "summary": "Verify Object",
+        "operationId": "verify_object_api_v1_namespaces__namespace__objects__object_id__verify_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Namespace"
+            },
+            "name": "namespace",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Object Id"
+            },
+            "name": "object_id",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            },
+            "name": "authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectVerifyResponse"
+                },
+                "examples": {
+                  "ObjectVerifyResponse": {
+                    "$ref": "#/components/examples/ObjectVerifyResponse"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIError"
+                },
+                "examples": {
+                  "ErrorValidation": {
+                    "$ref": "#/components/examples/ErrorValidation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/namespaces/{namespace}/uploads": {
+      "post": {
+        "tags": [
+          "uploads"
+        ],
+        "summary": "Upload Object",
+        "operationId": "upload_object_api_v1_namespaces__namespace__uploads_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Namespace"
+            },
+            "name": "namespace",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            },
+            "name": "authorization",
+            "in": "header"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_object_api_v1_namespaces__namespace__uploads_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadResponse"
+                },
+                "examples": {
+                  "UploadResponse": {
+                    "$ref": "#/components/examples/UploadResponse"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIError"
+                },
+                "examples": {
+                  "ErrorValidation": {
+                    "$ref": "#/components/examples/ErrorValidation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/namespaces/{namespace}/objects/{object_id}/download": {
+      "get": {
+        "tags": [
+          "download"
+        ],
+        "summary": "Download de objeto",
+        "operationId": "download_object_api_v1_namespaces__namespace__objects__object_id__download_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Namespace"
+            },
+            "name": "namespace",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Object Id"
+            },
+            "name": "object_id",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            },
+            "name": "authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Conteúdo binário do objeto.",
+            "headers": {
+              "Content-Length": {
+                "description": "Tamanho do conteúdo em bytes.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-Object-ID": {
+                "description": "Identificador do objeto.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Content-Hash": {
+                "description": "Hash SHA-256 do conteúdo.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIError"
+                },
+                "examples": {
+                  "ErrorValidation": {
+                    "$ref": "#/components/examples/ErrorValidation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "Recupera o conteúdo binário de um objeto armazenado no namespace informado."
+      }
+    },
+    "/api/v1/namespaces/{namespace}/objects/{object_id}/metadata": {
+      "get": {
+        "tags": [
+          "metadata"
+        ],
+        "summary": "Get Object Metadata",
+        "operationId": "get_object_metadata_api_v1_namespaces__namespace__objects__object_id__metadata_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Namespace"
+            },
+            "name": "namespace",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Object Id"
+            },
+            "name": "object_id",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            },
+            "name": "authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectMetadataResponse"
+                },
+                "examples": {
+                  "ObjectMetadataResponse": {
+                    "$ref": "#/components/examples/ObjectMetadataResponse"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIError"
+                },
+                "examples": {
+                  "ErrorValidation": {
+                    "$ref": "#/components/examples/ErrorValidation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/namespaces/{namespace}/objects/{object_id}/manifest": {
+      "get": {
+        "tags": [
+          "manifests"
+        ],
+        "summary": "Get Manifest",
+        "operationId": "get_manifest_api_v1_namespaces__namespace__objects__object_id__manifest_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Namespace"
+            },
+            "name": "namespace",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Object Id"
+            },
+            "name": "object_id",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            },
+            "name": "authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManifestResponse"
+                },
+                "examples": {
+                  "ManifestResponse": {
+                    "$ref": "#/components/examples/ManifestResponse"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIError"
+                },
+                "examples": {
+                  "ErrorValidation": {
+                    "$ref": "#/components/examples/ErrorValidation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/transactions": {
+      "get": {
+        "tags": [
+          "transactions"
+        ],
+        "summary": "List Transactions",
+        "operationId": "list_transactions_api_v1_transactions_get",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            },
+            "name": "authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionListResponse"
+                },
+                "examples": {
+                  "TransactionListResponse": {
+                    "$ref": "#/components/examples/TransactionListResponse"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIError"
+                },
+                "examples": {
+                  "ErrorValidation": {
+                    "$ref": "#/components/examples/ErrorValidation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/transactions/{transaction_id}": {
+      "get": {
+        "tags": [
+          "transactions"
+        ],
+        "summary": "Get Transaction",
+        "operationId": "get_transaction_api_v1_transactions__transaction_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Transaction Id"
+            },
+            "name": "transaction_id",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            },
+            "name": "authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionResponse"
+                },
+                "examples": {
+                  "TransactionResponse": {
+                    "$ref": "#/components/examples/TransactionResponse"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIError"
+                },
+                "examples": {
+                  "ErrorValidation": {
+                    "$ref": "#/components/examples/ErrorValidation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/namespaces/{namespace}/quota": {
+      "get": {
+        "tags": [
+          "quotas"
+        ],
+        "summary": "Get Quota",
+        "operationId": "get_quota_api_v1_namespaces__namespace__quota_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Namespace"
+            },
+            "name": "namespace",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            },
+            "name": "authorization",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuotaResponse"
+                },
+                "examples": {
+                  "QuotaResponse": {
+                    "$ref": "#/components/examples/QuotaResponse"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIError"
+                },
+                "examples": {
+                  "ErrorValidation": {
+                    "$ref": "#/components/examples/ErrorValidation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "quotas"
+        ],
+        "summary": "Update Quota",
+        "operationId": "update_quota_api_v1_namespaces__namespace__quota_put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Namespace"
+            },
+            "name": "namespace",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            },
+            "name": "authorization",
+            "in": "header"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuotaUpdateRequest"
+              },
+              "examples": {
+                "QuotaUpdate": {
+                  "$ref": "#/components/examples/QuotaUpdateRequest"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuotaResponse"
+                },
+                "examples": {
+                  "QuotaResponse": {
+                    "$ref": "#/components/examples/QuotaResponse"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIError"
+                },
+                "examples": {
+                  "ErrorValidation": {
+                    "$ref": "#/components/examples/ErrorValidation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Body_upload_object_api_v1_namespaces__namespace__uploads_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_upload_object_api_v1_namespaces__namespace__uploads_post"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "ManifestBlockResponse": {
+        "properties": {
+          "index": {
+            "type": "integer",
+            "title": "Index"
+          },
+          "block_id": {
+            "type": "string",
+            "title": "Block Id"
+          },
+          "size": {
+            "type": "integer",
+            "title": "Size"
+          }
+        },
+        "type": "object",
+        "required": [
+          "index",
+          "block_id",
+          "size"
+        ],
+        "title": "ManifestBlockResponse"
+      },
+      "ManifestResponse": {
+        "properties": {
+          "object_id": {
+            "type": "string",
+            "title": "Object Id"
+          },
+          "namespace": {
+            "type": "string",
+            "title": "Namespace"
+          },
+          "total_size": {
+            "type": "integer",
+            "title": "Total Size"
+          },
+          "block_size": {
+            "type": "integer",
+            "title": "Block Size"
+          },
+          "block_count": {
+            "type": "integer",
+            "title": "Block Count"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "blocks": {
+            "items": {
+              "$ref": "#/components/schemas/ManifestBlockResponse"
+            },
+            "type": "array",
+            "title": "Blocks"
+          }
+        },
+        "type": "object",
+        "required": [
+          "object_id",
+          "namespace",
+          "total_size",
+          "block_size",
+          "block_count",
+          "created_at",
+          "status",
+          "blocks"
+        ],
+        "title": "ManifestResponse"
+      },
+      "MetricsResponse": {
+        "properties": {
+          "objects": {
+            "type": "object",
+            "title": "Objects"
+          },
+          "direct": {
+            "type": "object",
+            "title": "Direct"
+          },
+          "block_objects": {
+            "type": "object",
+            "title": "Block Objects"
+          },
+          "blocks": {
+            "type": "object",
+            "title": "Blocks"
+          },
+          "deduplication": {
+            "type": "object",
+            "title": "Deduplication"
+          },
+          "capacity": {
+            "type": "object",
+            "title": "Capacity"
+          }
+        },
+        "type": "object",
+        "required": [
+          "objects",
+          "direct",
+          "block_objects",
+          "blocks",
+          "deduplication",
+          "capacity"
+        ],
+        "title": "MetricsResponse"
+      },
+      "NamespaceCreateRequest": {
+        "properties": {
+          "namespace": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Namespace"
+          },
+          "quota_bytes": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Quota Bytes",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "namespace"
+        ],
+        "title": "NamespaceCreateRequest"
+      },
+      "NamespaceListResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/NamespaceResponse"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "total"
+        ],
+        "title": "NamespaceListResponse"
+      },
+      "NamespaceResponse": {
+        "properties": {
+          "namespace": {
+            "type": "string",
+            "title": "Namespace"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "quota_bytes": {
+            "type": "integer",
+            "title": "Quota Bytes"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "namespace",
+          "status",
+          "quota_bytes",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "NamespaceResponse"
+      },
+      "ObjectCreateRequest": {
+        "properties": {
+          "data": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "ObjectCreateRequest"
+      },
+      "ObjectCreateResponse": {
+        "properties": {
+          "object_id": {
+            "type": "string",
+            "title": "Object Id"
+          },
+          "namespace": {
+            "type": "string",
+            "title": "Namespace"
+          },
+          "size": {
+            "type": "integer",
+            "title": "Size"
+          },
+          "content_hash": {
+            "type": "string",
+            "title": "Content Hash"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "object_id",
+          "namespace",
+          "size",
+          "content_hash",
+          "status"
+        ],
+        "title": "ObjectCreateResponse"
+      },
+      "ObjectDeleteResponse": {
+        "properties": {
+          "object_id": {
+            "type": "string",
+            "title": "Object Id"
+          },
+          "deleted": {
+            "type": "boolean",
+            "title": "Deleted"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "object_id",
+          "deleted",
+          "status"
+        ],
+        "title": "ObjectDeleteResponse"
+      },
+      "ObjectListItem": {
+        "properties": {
+          "object_id": {
+            "type": "string",
+            "title": "Object Id"
+          },
+          "namespace": {
+            "type": "string",
+            "title": "Namespace"
+          },
+          "size": {
+            "type": "integer",
+            "title": "Size"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "object_id",
+          "namespace",
+          "size",
+          "status"
+        ],
+        "title": "ObjectListItem"
+      },
+      "ObjectListResponse": {
+        "properties": {
+          "namespace": {
+            "type": "string",
+            "title": "Namespace"
+          },
+          "objects": {
+            "items": {
+              "$ref": "#/components/schemas/ObjectListItem"
+            },
+            "type": "array",
+            "title": "Objects"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "namespace",
+          "objects",
+          "count"
+        ],
+        "title": "ObjectListResponse"
+      },
+      "ObjectMetadataResponse": {
+        "properties": {
+          "object_id": {
+            "type": "string",
+            "title": "Object Id"
+          },
+          "namespace": {
+            "type": "string",
+            "title": "Namespace"
+          },
+          "size": {
+            "type": "integer",
+            "title": "Size"
+          },
+          "content_hash": {
+            "type": "string",
+            "title": "Content Hash"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "object_id",
+          "namespace",
+          "size",
+          "content_hash",
+          "status"
+        ],
+        "title": "ObjectMetadataResponse"
+      },
+      "ObjectVerifyResponse": {
+        "properties": {
+          "object_id": {
+            "type": "string",
+            "title": "Object Id"
+          },
+          "valid": {
+            "type": "boolean",
+            "title": "Valid"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "object_id",
+          "valid",
+          "status",
+          "message"
+        ],
+        "title": "ObjectVerifyResponse"
+      },
+      "QuotaResponse": {
+        "properties": {
+          "namespace": {
+            "type": "string",
+            "title": "Namespace"
+          },
+          "quota_bytes": {
+            "type": "integer",
+            "title": "Quota Bytes"
+          },
+          "used_bytes": {
+            "type": "integer",
+            "title": "Used Bytes"
+          },
+          "available_bytes": {
+            "type": "integer",
+            "title": "Available Bytes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "namespace",
+          "quota_bytes",
+          "used_bytes"
+        ],
+        "title": "QuotaResponse"
+      },
+      "QuotaUpdateRequest": {
+        "properties": {
+          "quota_bytes": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Quota Bytes"
+          },
+          "mode": {
+            "type": "string",
+            "title": "Mode",
+            "default": "LOGICAL"
+          }
+        },
+        "type": "object",
+        "required": [
+          "quota_bytes"
+        ],
+        "title": "QuotaUpdateRequest"
+      },
+      "TransactionListResponse": {
+        "properties": {
+          "transactions": {
+            "items": {
+              "$ref": "#/components/schemas/TransactionResponse"
+            },
+            "type": "array",
+            "title": "Transactions"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "transactions",
+          "count"
+        ],
+        "title": "TransactionListResponse"
+      },
+      "TransactionResponse": {
+        "properties": {
+          "transaction_id": {
+            "type": "string",
+            "title": "Transaction Id"
+          },
+          "object_id": {
+            "type": "string",
+            "title": "Object Id"
+          },
+          "namespace": {
+            "type": "string",
+            "title": "Namespace"
+          },
+          "operation": {
+            "type": "string",
+            "title": "Operation"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "transaction_id",
+          "operation",
+          "state",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "TransactionResponse"
+      },
+      "UploadResponse": {
+        "properties": {
+          "object_id": {
+            "type": "string",
+            "title": "Object Id"
+          },
+          "namespace": {
+            "type": "string",
+            "title": "Namespace"
+          },
+          "filename": {
+            "type": "string",
+            "title": "Filename"
+          },
+          "size": {
+            "type": "integer",
+            "title": "Size"
+          },
+          "content_hash": {
+            "type": "string",
+            "title": "Content Hash"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "object_id",
+          "namespace",
+          "filename",
+          "size",
+          "content_hash",
+          "status"
+        ],
+        "title": "UploadResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "APIError": {
+        "title": "APIError",
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "request_id"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "example": "OBJECT_NOT_FOUND"
+              },
+              "message": {
+                "type": "string",
+                "example": "Objeto não encontrado"
+              },
+              "request_id": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "example": "req_01JEXAMPLE"
+              },
+              "details": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "credential",
+        "description": "Credencial de API enviada no cabeçalho Authorization como Bearer <credential>."
+      }
+    },
+    "examples": {
+      "NamespaceCreateRequest": {
+        "value": {
+          "namespace": "documents",
+          "quota_bytes": 10737418240
+        },
+        "summary": "Criação de namespace"
+      },
+      "NamespaceResponse": {
+        "value": {
+          "namespace": "documents",
+          "status": "ACTIVE",
+          "quota_bytes": 10737418240,
+          "created_at": "2026-09-15T15:00:00Z",
+          "updated_at": "2026-09-15T15:00:00Z"
+        },
+        "summary": "Namespace ativo"
+      },
+      "NamespaceListResponse": {
+        "value": {
+          "items": [
+            {
+              "namespace": "documents",
+              "status": "ACTIVE",
+              "quota_bytes": 10737418240,
+              "created_at": "2026-09-15T15:00:00Z",
+              "updated_at": "2026-09-15T15:00:00Z"
+            }
+          ],
+          "total": 1
+        },
+        "summary": "Lista de namespaces"
+      },
+      "ObjectCreateRequest": {
+        "value": {
+          "data": "Q0xJU0VSIERBVEEgTk9ERQ=="
+        },
+        "summary": "Objeto em Base64",
+        "description": "O campo data deve conter Base64 válido."
+      },
+      "ObjectCreateResponse": {
+        "value": {
+          "object_id": "obj_01JEXAMPLE",
+          "namespace": "documents",
+          "size": 16,
+          "content_hash": "sha256:01JEXAMPLE",
+          "status": "ACTIVE"
+        },
+        "summary": "Objeto criado"
+      },
+      "ObjectListResponse": {
+        "value": {
+          "namespace": "documents",
+          "objects": [
+            {
+              "object_id": "obj_01JEXAMPLE",
+              "namespace": "documents",
+              "size": 16,
+              "created_at": "2026-09-14T12:00:00Z",
+              "status": "ACTIVE"
+            }
+          ],
+          "count": 1
+        },
+        "summary": "Lista de objetos"
+      },
+      "ObjectMetadataResponse": {
+        "value": {
+          "object_id": "obj_01JEXAMPLE",
+          "namespace": "documents",
+          "size": 16,
+          "content_hash": "sha256:01JEXAMPLE",
+          "created_at": "2026-09-15T15:00:00Z",
+          "status": "ACTIVE"
+        },
+        "summary": "Metadados do objeto"
+      },
+      "ObjectVerifyResponse": {
+        "value": {
+          "object_id": "obj_01JEXAMPLE",
+          "valid": true,
+          "status": "VALID",
+          "message": "VALID"
+        },
+        "summary": "Objeto válido"
+      },
+      "ObjectDeleteResponse": {
+        "value": {
+          "object_id": "obj_01JEXAMPLE",
+          "deleted": true,
+          "status": "DELETED"
+        },
+        "summary": "Objeto removido"
+      },
+      "UploadResponse": {
+        "value": {
+          "object_id": "obj_01JEXAMPLE",
+          "namespace": "documents",
+          "filename": "documento.pdf",
+          "size": 245760,
+          "content_hash": "sha256:01JEXAMPLE",
+          "status": "ACTIVE"
+        },
+        "summary": "Upload concluído"
+      },
+      "ManifestResponse": {
+        "value": {
+          "object_id": "obj_01JEXAMPLE",
+          "namespace": "documents",
+          "total_size": 524288,
+          "block_size": 262144,
+          "block_count": 2,
+          "created_at": "2026-09-15T15:00:00Z",
+          "status": "ACTIVE",
+          "blocks": [
+            {
+              "index": 0,
+              "block_id": "blk_01JEXAMPLE0",
+              "size": 262144
+            },
+            {
+              "index": 1,
+              "block_id": "blk_01JEXAMPLE1",
+              "size": 262144
+            }
+          ]
+        },
+        "summary": "Manifesto do objeto"
+      },
+      "TransactionResponse": {
+        "value": {
+          "transaction_id": "tx_01JEXAMPLE",
+          "object_id": "obj_01JEXAMPLE",
+          "namespace": "documents",
+          "operation": "OBJECT_CREATE",
+          "state": "COMMITTED",
+          "created_at": "2026-09-15T15:00:00Z",
+          "updated_at": "2026-09-15T15:00:01Z"
+        },
+        "summary": "Transação concluída"
+      },
+      "TransactionListResponse": {
+        "value": {
+          "transactions": [
+            {
+              "transaction_id": "tx_01JEXAMPLE",
+              "object_id": "obj_01JEXAMPLE",
+              "namespace": "documents",
+              "operation": "OBJECT_CREATE",
+              "state": "COMMITTED",
+              "created_at": "2026-09-15T15:00:00Z",
+              "updated_at": "2026-09-15T15:00:01Z"
+            }
+          ],
+          "count": 1
+        },
+        "summary": "Lista de transações"
+      },
+      "QuotaUpdateRequest": {
+        "value": {
+          "quota_bytes": 10737418240,
+          "mode": "LOGICAL"
+        },
+        "summary": "Atualização de quota"
+      },
+      "QuotaResponse": {
+        "value": {
+          "namespace": "documents",
+          "quota_bytes": 10737418240,
+          "used_bytes": 245760,
+          "available_bytes": 10737172480
+        },
+        "summary": "Quota do namespace"
+      },
+      "AuthMeResponse": {
+        "value": {
+          "authenticated": true,
+          "identity_id": "identity_01JEXAMPLE",
+          "role": "admin",
+          "namespace": "documents",
+          "credential_id": "cred_01JEXAMPLE"
+        },
+        "summary": "Identidade autenticada"
+      },
+      "HealthResponse": {
+        "value": {
+          "service": "cliser-data-node",
+          "status": "OK",
+          "checks": {}
+        },
+        "summary": "Health do node"
+      },
+      "HealthLiveResponse": {
+        "value": {
+          "status": "ok",
+          "service": "cliser-data-node",
+          "api_version": "v1"
+        },
+        "summary": "Liveness"
+      },
+      "HealthReadyResponse": {
+        "value": {
+          "service": "cliser-data-node",
+          "status": "READY",
+          "checks": {}
+        },
+        "summary": "Node pronto"
+      },
+      "HealthNotReadyResponse": {
+        "value": {
+          "service": "cliser-data-node",
+          "status": "NOT_READY",
+          "checks": {}
+        },
+        "summary": "Node não pronto"
+      },
+      "ErrorUnauthorized": {
+        "value": {
+          "error": {
+            "code": "AUTH_REQUIRED",
+            "message": "Authorization header required",
+            "request_id": "req_01JEXAMPLE"
+          }
+        },
+        "summary": "Autenticação obrigatória"
+      },
+      "ErrorForbidden": {
+        "value": {
+          "error": {
+            "code": "AUTHZ_DENIED",
+            "message": "Access denied",
+            "request_id": "req_01JEXAMPLE",
+            "details": {
+              "permission": "object.read"
+            }
+          }
+        },
+        "summary": "Acesso negado"
+      },
+      "ErrorNotFound": {
+        "value": {
+          "error": {
+            "code": "OBJECT_NOT_FOUND",
+            "message": "Objeto não encontrado",
+            "request_id": "req_01JEXAMPLE"
+          }
+        },
+        "summary": "Objeto não encontrado"
+      },
+      "ErrorConflict": {
+        "value": {
+          "error": {
+            "code": "IDEMPOTENCY_KEY_CONFLICT",
+            "message": "Idempotency-Key conflict",
+            "request_id": "req_01JEXAMPLE"
+          }
+        },
+        "summary": "Conflito de idempotência"
+      },
+      "ErrorValidation": {
+        "value": {
+          "error": {
+            "code": "VALIDATION_ERROR",
+            "message": "Request validation failed.",
+            "request_id": "req_01JEXAMPLE",
+            "details": {
+              "errors": [
+                {
+                  "type": "value_error",
+                  "loc": [
+                    "body",
+                    "namespace"
+                  ],
+                  "msg": "field required"
+                }
+              ]
+            }
+          }
+        },
+        "summary": "Erro de validação"
+      },
+      "ErrorRateLimit": {
+        "value": {
+          "error": {
+            "code": "RATE_LIMIT_EXCEEDED",
+            "message": "Limite de requisições excedido.",
+            "details": {
+              "operation": "object.create",
+              "limit": 60,
+              "remaining": 0,
+              "retry_after": 60
+            }
+          }
+        },
+        "summary": "Rate limit excedido"
+      }
+    }
+  },
+  "x-api-version": "v1",
+  "x-base-path": "/api/v1",
+  "tags": [
+    {
+      "name": "health",
+      "description": "Health, liveness e readiness do node."
+    },
+    {
+      "name": "metrics",
+      "description": "Métricas operacionais do node."
+    },
+    {
+      "name": "lifecycle",
+      "description": "Operações de manutenção e ciclo de vida."
+    },
+    {
+      "name": "authentication",
+      "description": "Autenticação e identidade."
+    },
+    {
+      "name": "namespaces",
+      "description": "Gerenciamento de namespaces."
+    },
+    {
+      "name": "objects",
+      "description": "Criação, consulta, verificação e exclusão de objetos."
+    },
+    {
+      "name": "uploads",
+      "description": "Upload de objetos."
+    },
+    {
+      "name": "download",
+      "description": "Download de conteúdo binário."
+    },
+    {
+      "name": "metadata",
+      "description": "Metadados dos objetos."
+    },
+    {
+      "name": "manifests",
+      "description": "Manifestos e blocos."
+    },
+    {
+      "name": "transactions",
+      "description": "Consulta de transações."
+    },
+    {
+      "name": "quotas",
+      "description": "Gerenciamento de quotas."
+    }
+  ]
+}
