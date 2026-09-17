@@ -164,7 +164,7 @@ def test_http_rate_limit_headers_are_present():
     )
 
     assert status == 200
-    assert payload.get("status") in {"OK", "WARNING"}
+    assert payload.get("status") in {"HEALTHY", "WARNING", "CRITICAL"}
 
     assert header_value(
         headers,

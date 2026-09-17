@@ -85,6 +85,20 @@ def cleanup():
             (NS_A, NS_B),
         )
 
+        # manifest_blocks é a fonte de verdade das referências.
+        # Após remover as relações dos objetos de teste, sincronizar
+        # ref_count dentro da mesma transação de teardown.
+        conn.execute(
+            """
+            UPDATE blocks
+            SET ref_count = (
+                SELECT COUNT(*)
+                FROM manifest_blocks
+                WHERE manifest_blocks.block_id = blocks.block_id
+            )
+            """
+        )
+
         conn.commit()
 
     except Exception:

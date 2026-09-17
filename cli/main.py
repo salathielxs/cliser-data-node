@@ -23,7 +23,6 @@ from node.registry import (
     list_objects,
     count_objects,
     all_objects,
-    create_namespace,
     get_namespace,
     list_namespace_records,
     set_namespace_status,
@@ -33,6 +32,7 @@ from node.quota import (
     set_quota,
     quota_report,
 )
+from node.namespace_manager import create_namespace
 from node.manifest import (
     get_manifest,
     reconstruct_object,
@@ -378,18 +378,19 @@ def objects(namespace=None):
 
         else:
             print(
-                f"ID:      {row[0]}"
+                f"ID:        {row[0]}"
             )
             print(
-                f"Size:    {row[2]} bytes"
+                f"Size:      {row[1]} bytes"
             )
             print(
-                f"Created: "
-                f"{row[5] if len(row) > 5 else row[3]}"
+                f"Namespace: {row[2]}"
             )
             print(
-                f"Status:  "
-                f"{row[6] if len(row) > 6 else row[4]}"
+                f"Created:   {row[3]}"
+            )
+            print(
+                f"Status:    {row[4]}"
             )
 
 
