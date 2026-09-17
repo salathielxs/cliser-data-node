@@ -13,6 +13,7 @@ from node import registry
 from node import namespace_manager
 from node.registry import connect
 from node.recovery import recover_pending_transactions
+from node.object_manager import garbage_collect_blocks
 
 
 TEST_NS = "atomicity_test"
@@ -87,6 +88,17 @@ def cleanup_namespace():
 
     conn.commit()
     conn.close()
+
+    # Recalcula ref_count após a remoção direta das referências.
+    # O cleanup do teste manipula manifest_blocks diretamente e,
+    # portanto, deve restaurar a mesma invariável usada pelo Node:
+    # ref_count == COUNT(manifest_blocks).
+    registry.rebuild_block_ref_counts()
+
+    # O cleanup remove diretamente as referências dos objetos de teste.
+    # Após recalcular ref_count, blocos sem referências devem seguir
+    # o mesmo mecanismo oficial de GC utilizado pelo Node.
+    garbage_collect_blocks()
 
     for object_id in object_ids:
         path = Path(object_manager.OBJECTS_DIR) / object_id
