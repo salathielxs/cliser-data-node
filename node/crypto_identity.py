@@ -282,6 +282,40 @@ def verify(
         return False
 
 
+
+def verify_with_public_key(
+    data: bytes,
+    signature: bytes,
+    public_key: Ed25519PublicKey,
+) -> bool:
+    """
+    Verifica uma assinatura Ed25519 usando uma chave pública fornecida.
+
+    Não utiliza a identidade pública local e não requer
+    desbloqueio da chave privada.
+    """
+
+    if not isinstance(data, bytes):
+        raise TypeError("data deve ser bytes.")
+
+    if not isinstance(signature, bytes):
+        raise TypeError("signature deve ser bytes.")
+
+    if not isinstance(public_key, Ed25519PublicKey):
+        raise TypeError(
+            "public_key deve ser Ed25519PublicKey."
+        )
+
+    try:
+        public_key.verify(
+            signature,
+            data,
+        )
+        return True
+    except Exception:
+        return False
+
+
 def initialize(
     password: str | None = None,
 ) -> dict:

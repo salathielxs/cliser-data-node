@@ -70,6 +70,80 @@ class CapabilityRegistry:
             },
         }
 
+    def permission_for(
+        self,
+        service: str,
+        operation: str,
+    ) -> str:
+        """
+        Resolve a permissão necessária para uma operação.
+
+        A relação entre operação e permissão pertence à
+        definição da Capability. A matriz de autorização
+        continua sendo responsabilidade de node.access_control.
+        """
+        capability = self.get(service)
+
+        operations = capability["operations"]
+        permissions = capability["permissions"]
+
+        if operation not in operations:
+            raise KeyError(
+                f"Operation not found: {service}.{operation}"
+            )
+
+        if service == "data":
+            mapping = {
+                "create_object": "object.create",
+                "get_object": "object.read",
+                "read_object_data": "object.read",
+                "verify_object": "object.read",
+                "delete_object": "object.delete",
+                "list_namespace_objects": "object.read",
+            }
+
+        elif service == "namespace":
+            mapping = {
+                "create_namespace": "namespace.manage",
+                "list_namespaces": "namespace.read",
+                "get_namespace": "namespace.read",
+                "enable_namespace": "namespace.manage",
+                "disable_namespace": "namespace.manage",
+            }
+
+        elif service == "metrics":
+            mapping = {
+                "get_metrics": "node.manage",
+            }
+
+        elif service == "lifecycle":
+            mapping = {
+                "garbage_collect": "node.manage",
+                "integrity_check": "node.manage",
+                "rebuild_refcounts": "node.manage",
+            }
+
+        else:
+            raise KeyError(
+                f"No permission mapping for capability: {service}"
+            )
+
+        permission = mapping.get(operation)
+
+        if permission is None:
+            raise KeyError(
+                f"No permission mapping for operation: "
+                f"{service}.{operation}"
+            )
+
+        if permission not in permissions:
+            raise ValueError(
+                f"Permission {permission} is not declared "
+                f"by capability {service}."
+            )
+
+        return permission
+
     def state(self) -> dict[str, dict[str, Any]]:
         return {
             name: {

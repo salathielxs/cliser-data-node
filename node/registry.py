@@ -121,6 +121,30 @@ def connect():
             updated_at TEXT NOT NULL
         );
 
+        CREATE TABLE IF NOT EXISTS peer_authorizations (
+            identity_id TEXT PRIMARY KEY,
+            fingerprint TEXT NOT NULL UNIQUE,
+            role TEXT NOT NULL,
+            namespace TEXT,
+            status TEXT NOT NULL DEFAULT 'ACTIVE',
+            created_at TEXT NOT NULL,
+            updated_at TEXT NOT NULL
+        );
+
+        CREATE TABLE IF NOT EXISTS replay_records (
+            envelope_id TEXT PRIMARY KEY,
+            source_peer_id TEXT NOT NULL,
+            source_node_id TEXT NOT NULL,
+            received_at TEXT NOT NULL,
+            expires_at TEXT NOT NULL
+        );
+
+        CREATE INDEX IF NOT EXISTS idx_peer_authorizations_fingerprint
+        ON peer_authorizations(fingerprint);
+
+        CREATE INDEX IF NOT EXISTS idx_peer_authorizations_status
+        ON peer_authorizations(status);
+
         CREATE INDEX IF NOT EXISTS idx_api_credentials_token_hash
         ON api_credentials(token_hash);
 
@@ -208,9 +232,137 @@ def connect():
     return conn
 
 
+
 # ============================================================
-# OBJECTS
+# TRANSPORT REPLAY PROTECTION
 # ============================================================
+
+def reserve_replay(
+    envelope_id: str,
+    source_peer_id: str,
+    source_node_id: str,
+    received_at: str,
+    expires_at: str,
+) -> bool:
+    """
+    Reserva um envelope para proteção contra replay.
+
+    Lifecycle:
+
+        envelope inexistente
+            -> INSERT
+            -> True
+
+        envelope existente e ainda válido
+            -> False
+
+        envelope existente e expirado
+            -> substituição atômica
+            -> True
+
+    BEGIN IMMEDIATE serializa concorrentes antes da decisão
+    de reserva ou renovação.
+
+    Invariante:
+
+        N concorrentes para o mesmo envelope_id
+            -> exatamente 1 vencedor
+            -> demais retornam False
+    """
+
+    if not envelope_id:
+        raise ValueError("envelope_id inválido.")
+
+    if not source_peer_id:
+        raise ValueError("source_peer_id inválido.")
+
+    if not source_node_id:
+        raise ValueError("source_node_id inválido.")
+
+    if not received_at:
+        raise ValueError("received_at inválido.")
+
+    if not expires_at:
+        raise ValueError("expires_at inválido.")
+
+    conn = connect()
+
+    try:
+        conn.execute("BEGIN IMMEDIATE")
+
+        row = conn.execute(
+            """
+            SELECT
+                source_peer_id,
+                source_node_id,
+                received_at,
+                expires_at
+            FROM replay_records
+            WHERE envelope_id = ?
+            """,
+            (envelope_id,),
+        ).fetchone()
+
+        if row is None:
+            conn.execute(
+                """
+                INSERT INTO replay_records
+                (
+                    envelope_id,
+                    source_peer_id,
+                    source_node_id,
+                    received_at,
+                    expires_at
+                )
+                VALUES (?, ?, ?, ?, ?)
+                """,
+                (
+                    envelope_id,
+                    source_peer_id,
+                    source_node_id,
+                    received_at,
+                    expires_at,
+                ),
+            )
+
+            conn.commit()
+            return True
+
+        existing_expires_at = row[3]
+
+        if existing_expires_at < received_at:
+            conn.execute(
+                """
+                UPDATE replay_records
+                SET
+                    source_peer_id = ?,
+                    source_node_id = ?,
+                    received_at = ?,
+                    expires_at = ?
+                WHERE envelope_id = ?
+                """,
+                (
+                    source_peer_id,
+                    source_node_id,
+                    received_at,
+                    expires_at,
+                    envelope_id,
+                ),
+            )
+
+            conn.commit()
+            return True
+
+        conn.rollback()
+        return False
+
+    except Exception:
+        conn.rollback()
+        raise
+
+    finally:
+        conn.close()
+
 
 def register_object(
     object_id,
@@ -1880,6 +2032,279 @@ def purge_object_record(object_id):
 
     finally:
         conn.close()
+
+
+# ============================================================
+# PEER AUTHORIZATIONS
+# ============================================================
+
+def register_peer_authorization(
+    identity_id: str,
+    fingerprint: str,
+    role: str,
+    namespace: str | None = None,
+    status: str = "ACTIVE",
+):
+    now = datetime.now(timezone.utc).isoformat()
+
+    conn = connect()
+
+    try:
+        conn.execute(
+            """
+            INSERT INTO peer_authorizations (
+                identity_id,
+                fingerprint,
+                role,
+                namespace,
+                status,
+                created_at,
+                updated_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                identity_id,
+                fingerprint,
+                role,
+                namespace,
+                status,
+                now,
+                now,
+            ),
+        )
+
+        conn.commit()
+
+    finally:
+        conn.close()
+
+
+def get_peer_authorization_by_identity(
+    identity_id: str,
+):
+    conn = connect()
+
+    try:
+        row = conn.execute(
+            """
+            SELECT
+                identity_id,
+                fingerprint,
+                role,
+                namespace,
+                status,
+                created_at,
+                updated_at
+            FROM peer_authorizations
+            WHERE identity_id = ?
+            LIMIT 1
+            """,
+            (identity_id,),
+        ).fetchone()
+
+        if row is None:
+            return None
+
+        return {
+            "identity_id": row[0],
+            "fingerprint": row[1],
+            "role": row[2],
+            "namespace": row[3],
+            "status": row[4],
+            "created_at": row[5],
+            "updated_at": row[6],
+        }
+
+    finally:
+        conn.close()
+
+
+def get_peer_authorization_by_fingerprint(
+    fingerprint: str,
+):
+    conn = connect()
+
+    try:
+        row = conn.execute(
+            """
+            SELECT
+                identity_id,
+                fingerprint,
+                role,
+                namespace,
+                status,
+                created_at,
+                updated_at
+            FROM peer_authorizations
+            WHERE fingerprint = ?
+            LIMIT 1
+            """,
+            (fingerprint,),
+        ).fetchone()
+
+        if row is None:
+            return None
+
+        return {
+            "identity_id": row[0],
+            "fingerprint": row[1],
+            "role": row[2],
+            "namespace": row[3],
+            "status": row[4],
+            "created_at": row[5],
+            "updated_at": row[6],
+        }
+
+    finally:
+        conn.close()
+
+
+def revoke_peer_authorization(
+    identity_id: str,
+):
+    now = datetime.now(timezone.utc).isoformat()
+
+    conn = connect()
+
+    try:
+        cursor = conn.execute(
+            """
+            UPDATE peer_authorizations
+            SET
+                status = 'REVOKED',
+                updated_at = ?
+            WHERE identity_id = ?
+            """,
+            (
+                now,
+                identity_id,
+            ),
+        )
+
+        conn.commit()
+
+        return cursor.rowcount > 0
+
+    finally:
+        conn.close()
+
+
+def reactivate_peer_authorization(
+    identity_id: str,
+    fingerprint: str | None = None,
+    role: str | None = None,
+    namespace: str | None = None,
+):
+    now = datetime.now(timezone.utc).isoformat()
+
+    conn = connect()
+
+    try:
+        current = conn.execute(
+            """
+            SELECT
+                identity_id,
+                fingerprint,
+                role,
+                namespace,
+                status
+            FROM peer_authorizations
+            WHERE identity_id = ?
+            LIMIT 1
+            """,
+            (identity_id,),
+        ).fetchone()
+
+        if current is None:
+            return False
+
+        current_fingerprint = current[1]
+        current_role = current[2]
+        current_namespace = current[3]
+
+        new_fingerprint = (
+            fingerprint
+            if fingerprint is not None
+            else current_fingerprint
+        )
+
+        new_role = (
+            role
+            if role is not None
+            else current_role
+        )
+
+        new_namespace = (
+            namespace
+            if namespace is not None
+            else current_namespace
+        )
+
+        cursor = conn.execute(
+            """
+            UPDATE peer_authorizations
+            SET
+                fingerprint = ?,
+                role = ?,
+                namespace = ?,
+                status = 'ACTIVE',
+                updated_at = ?
+            WHERE identity_id = ?
+            """,
+            (
+                new_fingerprint,
+                new_role,
+                new_namespace,
+                now,
+                identity_id,
+            ),
+        )
+
+        conn.commit()
+
+        return cursor.rowcount > 0
+
+    finally:
+        conn.close()
+
+
+
+def list_peer_authorizations():
+    conn = connect()
+
+    try:
+        rows = conn.execute(
+            """
+            SELECT
+                identity_id,
+                fingerprint,
+                role,
+                namespace,
+                status,
+                created_at,
+                updated_at
+            FROM peer_authorizations
+            ORDER BY created_at
+            """
+        ).fetchall()
+
+        return [
+            {
+                "identity_id": row[0],
+                "fingerprint": row[1],
+                "role": row[2],
+                "namespace": row[3],
+                "status": row[4],
+                "created_at": row[5],
+                "updated_at": row[6],
+            }
+            for row in rows
+        ]
+
+    finally:
+        conn.close()
+
 
 
 # ============================================================
